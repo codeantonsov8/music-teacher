@@ -1,0 +1,21 @@
+# Transcription configuration shared by the app and the research lab.
+# Version this file alongside model changes; record its hash with each piece.
+
+[compute]
+# auto | cpu | cuda
+device = "auto"
+
+[basic_pitch]
+onset_threshold = 0.5
+frame_threshold = 0.3
+minimum_note_length_ms = 127.7
+minimum_frequency = 32.70
+maximum_frequency = 1975.53
+melodia_trick = true
+# Drop quiet octave duplicates caused by harmonics in the source audio.
+harmonic_filter = true
+
+[monophonic]
+min_confidence = 0.5
+frame_length = 2048
+hop_length = 256

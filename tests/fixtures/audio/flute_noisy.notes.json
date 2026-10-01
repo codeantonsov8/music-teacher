@@ -1,0 +1,57 @@
+{
+  "name": "flute_noisy",
+  "sample_rate": 22050,
+  "timbre": "flute",
+  "noise_db": 15.0,
+  "description": "flute melody with 15 dB SNR white noise",
+  "notes": [
+    {
+      "start": 0.1,
+      "end": 0.5,
+      "pitch": 72,
+      "velocity": 0.8
+    },
+    {
+      "start": 0.53,
+      "end": 0.93,
+      "pitch": 74,
+      "velocity": 0.8
+    },
+    {
+      "start": 0.9600000000000001,
+      "end": 1.36,
+      "pitch": 76,
+      "velocity": 0.8
+    },
+    {
+      "start": 1.3900000000000001,
+      "end": 1.79,
+      "pitch": 79,
+      "velocity": 0.8
+    },
+    {
+      "start": 1.8200000000000003,
+      "end": 2.22,
+      "pitch": 81,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.2500000000000004,
+      "end": 2.6500000000000004,
+      "pitch": 79,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.6800000000000006,
+      "end": 3.0800000000000005,
+      "pitch": 76,
+      "velocity": 0.8
+    },
+    {
+      "start": 3.1100000000000008,
+      "end": 3.5100000000000007,
+      "pitch": 72,
+      "velocity": 0.8
+    }
+  ]
+}

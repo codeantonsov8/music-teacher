@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Music Teacher — Lab</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font: 15px/1.5 system-ui, sans-serif;
+    background: #101216; color: #e6e8ec; padding: 2rem;
+  }
+  h1 { font-size: 1.3rem; margin: 0 0 .25rem; }
+  .sub { color: #8b93a3; margin-bottom: 1.5rem; }
+  .card {
+    background: #181b21; border: 1px solid #262b34; border-radius: 10px;
+    padding: 1rem 1.25rem; margin-bottom: 1rem; max-width: 960px;
+  }
+  .card h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: #8b93a3; margin: 0 0 .5rem; }
+  code, pre { font-family: ui-monospace, monospace; font-size: .85rem; }
+  pre { margin: 0; white-space: pre-wrap; }
+  .row { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+  button {
+    background: #2f6bff; color: white; border: 0; border-radius: 8px;
+    padding: .5rem .9rem; font-weight: 600; cursor: pointer;
+  }
+  button:disabled { background: #2a3550; cursor: progress; }
+  canvas { width: 100%; height: 220px; background: #0c0e12; border-radius: 8px; margin-top: .75rem; }
+  .warn { color: #f5c76b; }
+  .ok { color: #6ee7a0; }
+</style>
+</head>
+<body>
+  <h1>Music Teacher</h1>
+  <div class="sub">M1 lab — upload audio, inspect transcription</div>
+
+  <div class="card">
+    <h2>Transcribe</h2>
+    <div class="row">
+      <input type="file" id="file" accept="audio/*" />
+      <button id="go" disabled>Transcribe</button>
+      <span id="status" class="sub" style="margin:0"></span>
+    </div>
+    <audio id="player" controls style="width:100%; margin-top:.75rem" hidden></audio>
+    <canvas id="roll" width="1800" height="440"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Server</h2>
+    <pre id="health">checking…</pre>
+  </div>
+
+  <div class="card">
+    <h2>Compute / ONNX providers</h2>
+    <pre id="device">checking…</pre>
+  </div>
+
+<script>
+const NOTE_NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+const fileInput = document.getElementById("file");
+const goButton = document.getElementById("go");
+const statusEl = document.getElementById("status");
+const player = document.getElementById("player");
+const canvas = document.getElementById("roll");
+const ctx = canvas.getContext("2d");
+
+fileInput.addEventListener("change", () => { goButton.disabled = !fileInput.files.length; });
+goButton.addEventListener("click", transcribe);
+
+function noteName(pitch) { return NOTE_NAMES[pitch % 12] + (Math.floor(pitch / 12) - 1); }
+
+function drawRoll(notes, duration) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (!notes.length) return;
+  const pitches = notes.map(n => n.pitch);
+  const lo = Math.min(...pitches) - 1, hi = Math.max(...pitches) + 1;
+  const left = 70, top = 12, right = 16, bottom = 24;
+  const width = canvas.width - left - right;
+  const height = canvas.height - top - bottom;
+  const x = t => left + (t / duration) * width;
+  const y = p => top + height - ((p - lo) / (hi - lo)) * height;
+  const rowHeight = Math.max(2, height / (hi - lo));
+
+  ctx.strokeStyle = "#1d222b"; ctx.lineWidth = 1;
+  for (let p = lo; p <= hi; p++) {
+    if (p % 12 !== 0) continue;
+    ctx.beginPath(); ctx.moveTo(left, y(p)); ctx.lineTo(left + width, y(p)); ctx.stroke();
+    ctx.fillStyle = "#8b93a3"; ctx.font = "12px monospace";
+    ctx.fillText(noteName(p), 8, y(p) + 4);
+  }
+  for (const note of notes) {
+    const alpha = 0.45 + 0.55 * Math.min(note.velocity, 1);
+    ctx.fillStyle = `rgba(110, 231, 160, ${alpha})`;
+    ctx.fillRect(x(note.start), y(note.pitch) - rowHeight / 2,
+                 Math.max(2, x(note.end) - x(note.start)), rowHeight);
+  }
+}
+
+async function transcribe() {
+  const file = fileInput.files[0];
+  if (!file) return;
+  goButton.disabled = true;
+  statusEl.textContent = "transcribing…";
+  player.src = URL.createObjectURL(file);
+  player.hidden = false;
+
+  const body = new FormData();
+  body.append("file", file);
+  try {
+    const res = await fetch("/api/transcribe", { method: "POST", body });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    drawRoll(data.notes, data.duration);
+    statusEl.innerHTML = `<span class="ok">${data.count} notes in ${data.duration}s</span> — ${data.providers.join(", ")}`;
+  } catch (err) {
+    statusEl.innerHTML = `<span class="warn">${err}</span>`;
+  } finally {
+    goButton.disabled = false;
+  }
+}
+
+async function show(id, url) {
+  const el = document.getElementById(id);
+  try {
+    el.textContent = JSON.stringify(await (await fetch(url)).json(), null, 2);
+  } catch (err) {
+    el.innerHTML = '<span class="warn">' + err + '</span>';
+  }
+}
+show("health", "/api/health");
+show("device", "/api/device");
+</script>
+</body>
+</html>

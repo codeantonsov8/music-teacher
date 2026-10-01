@@ -1,0 +1,57 @@
+{
+  "name": "sine_scale",
+  "sample_rate": 22050,
+  "timbre": "sine",
+  "noise_db": null,
+  "description": "C major scale, C4-C5",
+  "notes": [
+    {
+      "start": 0.1,
+      "end": 0.44999999999999996,
+      "pitch": 60,
+      "velocity": 0.8
+    },
+    {
+      "start": 0.48,
+      "end": 0.83,
+      "pitch": 62,
+      "velocity": 0.8
+    },
+    {
+      "start": 0.86,
+      "end": 1.21,
+      "pitch": 64,
+      "velocity": 0.8
+    },
+    {
+      "start": 1.24,
+      "end": 1.5899999999999999,
+      "pitch": 65,
+      "velocity": 0.8
+    },
+    {
+      "start": 1.62,
+      "end": 1.9700000000000002,
+      "pitch": 67,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.0,
+      "end": 2.35,
+      "pitch": 69,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.38,
+      "end": 2.73,
+      "pitch": 71,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.76,
+      "end": 3.11,
+      "pitch": 72,
+      "velocity": 0.8
+    }
+  ]
+}

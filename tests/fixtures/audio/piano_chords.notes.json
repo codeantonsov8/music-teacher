@@ -1,0 +1,63 @@
+{
+  "name": "piano_chords",
+  "sample_rate": 22050,
+  "timbre": "piano",
+  "noise_db": null,
+  "description": "C/F/G major triads, piano timbre",
+  "notes": [
+    {
+      "start": 0.1,
+      "end": 1.1,
+      "pitch": 60,
+      "velocity": 0.8
+    },
+    {
+      "start": 0.1,
+      "end": 1.1,
+      "pitch": 64,
+      "velocity": 0.8
+    },
+    {
+      "start": 0.1,
+      "end": 1.1,
+      "pitch": 67,
+      "velocity": 0.8
+    },
+    {
+      "start": 1.2,
+      "end": 2.2,
+      "pitch": 65,
+      "velocity": 0.8
+    },
+    {
+      "start": 1.2,
+      "end": 2.2,
+      "pitch": 69,
+      "velocity": 0.8
+    },
+    {
+      "start": 1.2,
+      "end": 2.2,
+      "pitch": 72,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.3,
+      "end": 3.3,
+      "pitch": 67,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.3,
+      "end": 3.3,
+      "pitch": 71,
+      "velocity": 0.8
+    },
+    {
+      "start": 2.3,
+      "end": 3.3,
+      "pitch": 74,
+      "velocity": 0.8
+    }
+  ]
+}

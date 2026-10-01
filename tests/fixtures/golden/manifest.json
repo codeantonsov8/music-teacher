@@ -1,0 +1,7 @@
+{
+  "basic_pitch": "0.4.0",
+  "model": "nmp.onnx",
+  "model_sha256": "2c3c1d144bfa61ad236e92e169c13535c880469a12a047d4e73451f2c059a0ec",
+  "python": "3.11.16",
+  "numpy": "1.26.4"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "sine_a4",
+  "sample_rate": 22050,
+  "timbre": "sine",
+  "noise_db": null,
+  "description": "single A4 sine tone",
+  "notes": [
+    {
+      "start": 0.2,
+      "end": 1.7,
+      "pitch": 69,
+      "velocity": 0.8
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "config": {
+    "onset_threshold": 0.5,
+    "frame_threshold": 0.3,
+    "minimum_note_length_ms": 127.7,
+    "minimum_frequency": 32.7,
+    "maximum_frequency": 1975.53,
+    "melodia_trick": true,
+    "harmonic_filter": true
+  },
+  "device": "auto",
+  "fixtures": {
+    "sine_a4": {
+      "reference_notes": 1,
+      "estimated_notes": 1,
+      "onset_pitch_precision": 1.0,
+      "onset_pitch_recall": 1.0,
+      "onset_pitch_f1": 1.0,
+      "offset_pitch_precision": 1.0,
+      "offset_pitch_recall": 1.0,
+      "offset_pitch_f1": 1.0
+    },
+    "sine_scale": {
+      "reference_notes": 8,
+      "estimated_notes": 8,
+      "onset_pitch_precision": 1.0,
+      "onset_pitch_recall": 1.0,
+      "onset_pitch_f1": 1.0,
+      "offset_pitch_precision": 1.0,
+      "offset_pitch_recall": 1.0,
+      "offset_pitch_f1": 1.0
+    },
+    "flute_melody": {
+      "reference_notes": 8,
+      "estimated_notes": 8,
+      "onset_pitch_precision": 1.0,
+      "onset_pitch_recall": 1.0,
+      "onset_pitch_f1": 1.0,
+      "offset_pitch_precision": 1.0,
+      "offset_pitch_recall": 1.0,
+      "offset_pitch_f1": 1.0
+    },
+    "flute_noisy": {
+      "reference_notes": 8,
+      "estimated_notes": 8,
+      "onset_pitch_precision": 1.0,
+      "onset_pitch_recall": 1.0,
+      "onset_pitch_f1": 1.0,
+      "offset_pitch_precision": 1.0,
+      "offset_pitch_recall": 1.0,
+      "offset_pitch_f1": 1.0
+    },
+    "piano_chords": {
+      "reference_notes": 9,
+      "estimated_notes": 9,
+      "onset_pitch_precision": 1.0,
+      "onset_pitch_recall": 1.0,
+      "onset_pitch_f1": 1.0,
+      "offset_pitch_precision": 1.0,
+      "offset_pitch_recall": 1.0,
+      "offset_pitch_f1": 1.0
+    }
+  },
+  "mean_onset_pitch_f1": 1.0,
+  "mean_offset_pitch_f1": 1.0
+}

@@ -1,17 +1,62 @@
 [project]
 name = "music-teacher"
 version = "0.1.0"
-description = "Add your description here"
+description = "Learn to play any music: transcribe audio, visualize instruments, get real-time feedback."
 readme = "README.md"
 authors = [
     { name = "Anton", email = "code.antonsov8@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "numpy>=2.1",
+    "scipy>=1.14",
+    "soundfile>=0.12.1",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "pydantic>=2.9",
+    "python-multipart>=0.0.32",
+]
 
 [project.scripts]
-music-teacher = "music_teacher:main"
+music-teacher = "music_teacher.main:main"
+
+[dependency-groups]
+cpu = ["onnxruntime>=1.20"]
+gpu = ["onnxruntime-gpu[cuda,cudnn]>=1.20"]
+dev = [
+    "jupyterlab>=4.3",
+    "ipykernel>=6.29",
+    "matplotlib>=3.9",
+    "librosa>=0.10.2",
+    "music21>=9.3",
+    "mir_eval>=0.8",
+    "pytest>=8.3",
+    "ruff>=0.9",
+    "httpx>=0.28.1",
+]
+
+[tool.uv]
+default-groups = ["gpu", "dev"]
 
 [build-system]
 requires = ["uv_build>=0.12.19,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: heavy tests (model inference)",
+    "gpu: requires CUDA execution provider",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Embedded notebook source is naturally wider than the code line limit.
+"scripts/make_notebooks.py" = ["E501"]
